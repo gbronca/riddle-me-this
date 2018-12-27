@@ -8,9 +8,11 @@
 </head>
 <body>
     <nav>
-        <div>Home</div>
-        <div>Login</div>
-        <div>Logout</div>
+        <ul>
+            <li><a href="{{ url_for('index') }}">Home</a></li>
+            <li><a href="{{ url_for('index') }}">Login</a></li>
+            <li><a href="{{ url_for('index') }}">Logout</a></li>
+        </ul>
     </nav>
     {% block content %}
 
