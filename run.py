@@ -1,14 +1,35 @@
-import os
+import os, json
 from flask import Flask, render_template, session, redirect, request, url_for, flash
 
 app = Flask(__name__)
+
+''' Loads the riddles.json file into a variable '''
+def load_riddles():
+    with open('data/riddles.json','r') as f:
+        riddles = json.load(f)
+    return riddles
+
 
 @app.route('/')
 def index():
     return render_template('index.html')
 
+
+''' Create new session and start a new game when a username is passed by index function'''
+@app.route('/new_game', methods = ['GET', 'POST'])
+def new_game():
+    session['username'] = request.form['username']
+    session['score'] = 0
+    session['attempts'] = 0
+    return redirect(url_for('riddle'))
+
+
 @app.route('/riddle', methods = ['GET', 'POST'])
 def riddle():
+    riddles = load_riddles()
+    #for riddle in riddles:
+    #    print (riddle['question'])
+
     return render_template('riddle.html')
 
 if __name__ == '__main__':
