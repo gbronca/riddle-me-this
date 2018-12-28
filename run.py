@@ -1,4 +1,4 @@
-import os, json
+import os, json, random
 from flask import Flask, render_template, session, redirect, request, url_for, flash
 
 app = Flask(__name__)
@@ -15,7 +15,7 @@ def index():
     return render_template('index.html')
 
 
-''' Create new session and start a new game when a username is passed by index function'''
+''' Create new session and start a new game when a username is passed by index function '''
 @app.route('/new_game', methods = ['GET', 'POST'])
 def new_game():
     session['username'] = request.form['username']
@@ -26,9 +26,13 @@ def new_game():
 
 @app.route('/riddle', methods = ['GET', 'POST'])
 def riddle():
+    ''' Loads the riddles from file and shuffles the results '''
     riddles = load_riddles()
-    #for riddle in riddles:
-    #    print (riddle['question'])
+    random.shuffle(riddles)
+
+    for riddle in riddles:
+        print (riddle['question'])
+        print (riddle['answer'])
 
     return render_template('riddle.html')
 
