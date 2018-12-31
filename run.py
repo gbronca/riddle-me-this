@@ -34,21 +34,26 @@ def riddle():
         return redirect(url_for('index'))
     
     if request.method == 'POST' and session['index'] < len(riddles):
-       if request.form['answer'].lower() == riddles[session['index']]['answer'].lower():
-           session['score'] += 1
-           session['index'] += 1
-           flash('Correct answer, %s, %s' % (session['score'], session['username']), 'warning')
-           
-           print(session['score'])
-           print(request.form['answer'])
-           print(session['username'])
-           print(session['score'])
+        if request.form['answer'].lower() == riddles[session['index']]['answer'].lower():
+            session['score'] += 1
+            session['index'] += 1
+            flash('Correct answer, %s, %s' % (session['score'], session['username']), 'success')
+        elif session['attempts'] < 2:
+            session['attempts'] += 1
+            print(session['attempts'])
+            if session['attempts'] == 2:
+                flash('Wrong answer, %s, this is your last chance' % (session['username']), 'warning')
+            else:
+                flash('Wrong answer, %s, you have %s attempts' % (session['username'], 3 - int(session['attempts'])), 'warning')
+        else:
+            session['attempts'] = 0
+            session['index'] += 1
+            flash('Wrong answer! Better luck with next riddle', 'error')
+            
 
+    if session['index'] >= 3:
+        flash('Congratulations, you finished the game %s. Your score is %s' %(session['username'], session['score']), 'victory')
 
-
-   # for riddle in riddles:
-   #     print (riddle['question'])
-    #    print (riddle['answer'])
 
     return render_template('riddle.html', question=riddles[session['index']]['question'])
 
