@@ -9,6 +9,8 @@ def load_riddles():
         riddles = json.load(f)
     return riddles
 
+''' Loads the riddles and shuffle the questions '''
+riddles = load_riddles()
 
 @app.route('/')
 def index():
@@ -21,20 +23,34 @@ def new_game():
     session['username'] = request.form['username']
     session['score'] = 0
     session['attempts'] = 0
+    session['index'] = 0 # Pointer to the current question number
+    random.shuffle(riddles)
     return redirect(url_for('riddle'))
 
 
 @app.route('/riddle', methods = ['GET', 'POST'])
 def riddle():
-    ''' Loads the riddles from file and shuffles the results '''
-    riddles = load_riddles()
-    random.shuffle(riddles)
+    if 'username' not in session:
+        return redirect(url_for('index'))
+    
+    if request.method == 'POST' and session['index'] < len(riddles):
+       if request.form['answer'].lower() == riddles[session['index']]['answer'].lower():
+           session['score'] += 1
+           session['index'] += 1
+           flash('Correct answer, %s, %s' % (session['score'], session['username']), 'warning')
+           
+           print(session['score'])
+           print(request.form['answer'])
+           print(session['username'])
+           print(session['score'])
 
-    for riddle in riddles:
-        print (riddle['question'])
-        print (riddle['answer'])
 
-    return render_template('riddle.html')
+
+   # for riddle in riddles:
+   #     print (riddle['question'])
+    #    print (riddle['answer'])
+
+    return render_template('riddle.html', question=riddles[session['index']]['question'])
 
 if __name__ == '__main__':
     app.secret_key = os.getenv('SECRET', 'mysecretkey123')

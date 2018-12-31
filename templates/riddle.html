@@ -1,5 +1,23 @@
 {% extends 'base.html' %}
 
 {% block content %}
-    <p>riddle.html</p>
+
+    <div>
+        <strong>{{ question }}</strong>
+        <br>
+    </div>
+    <form method="POST">
+        <span>answer:</span>
+        <input type="text" name="answer" id="answer">
+        <input type="submit" value="Answer">
+    </form>
+    <br>
+    {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+            {% for category, message in messages %}
+                <div class="{{ category }}">{{ message }}</div>
+            {% endfor %}
+        {% endif %}
+    {% endwith %}
+
 {% endblock %}

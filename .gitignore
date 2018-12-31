@@ -40,4 +40,5 @@ Thumbs.db
 *.bak
 *.swp
 *~
+.vscode
 .vscode/launch.json
