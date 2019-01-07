@@ -1,0 +1,42 @@
+div.warning{
+    background-color: rgba(220, 20, 60, 0.3);
+    color: rgb(255, 0, 0);
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    max-width: 960px;
+    margin: auto;
+}
+
+header {
+    border: 1px solid #000000;
+}
+
+nav ul {
+    display: flex;
+    justify-content: space-evenly;
+}
+
+li {
+    list-style: none;
+}
+
+a {
+    text-decoration: none;
+}
+
+section {
+    padding-top: 20px;
+}
+
+#form-details {
+    margin: auto;
+    max-width: 80%;
+    display: flex;
+    justify-content: space-around;
+    
+}

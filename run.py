@@ -12,10 +12,18 @@ def load_riddles():
 ''' Loads the riddles and shuffle the questions '''
 riddles = load_riddles()
 
+''' Start the game and delete existing session '''
 @app.route('/')
 def index():
+    if session:
+        [session.pop(key) for key in list(session.keys())]
     return render_template('index.html')
 
+''' Logout the user and delete existing session '''
+@app.route('/logout')
+def logout():
+    session.clear()
+    return redirect(url_for('index'))
 
 ''' Create new session and start a new game when a username is passed by index function '''
 @app.route('/new_game', methods = ['GET', 'POST'])
@@ -24,7 +32,11 @@ def new_game():
     session['score'] = 0
     session['attempts'] = 0
     session['index'] = 0 # Pointer to the current question number
+    
+    # Shuffles the riddles, ensuring that 2 players playing at the same time
+    # would have a different order for the riddles
     random.shuffle(riddles)
+
     return redirect(url_for('riddle'))
 
 

@@ -2,9 +2,15 @@
 
 
 {% block content %}
-    <form method="POST" action="{{ url_for('new_game') }}">
-        <label for="username">Username</label>
-        <input type="text" name="username" id="username">
+    <form method="POST" action="{{ url_for('new_game') }}" id="form-details">
+        <div>
+            <label for="name">Name: </label>
+            <input type="text" name="name" id="name">        
+        </div>
+        <div>
+            <label for="username">Username: </label>
+            <input type="text" name="username" id="username">
+        </div>
         <input type="submit" value="Start">
     </form>
 {% endblock %}
