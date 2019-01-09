@@ -9,17 +9,17 @@ def load_riddles():
         riddles = json.load(f)
     return riddles
 
-''' Loads the riddles and shuffle the questions '''
+# Load the riddles
 riddles = load_riddles()
 
-''' Start the game and delete existing session '''
+# Starts the game and delete existing session
 @app.route('/')
 def index():
     if session:
         [session.pop(key) for key in list(session.keys())]
     return render_template('index.html')
 
-''' Logout the user and delete existing session '''
+# Logout the current user and delete existing session
 @app.route('/logout')
 def logout():
     session.clear()
@@ -39,6 +39,13 @@ def new_game():
 
     return redirect(url_for('riddle'))
 
+@app.route('/scoreboard')
+def scoreboard():
+    with open('data/scores.json', 'r') as f:
+        scores = json.load(f)
+    
+    return render_template('scoreboard.html', scoreboard=scores)
+
 
 @app.route('/riddle', methods = ['GET', 'POST'])
 def riddle():
@@ -54,13 +61,13 @@ def riddle():
             session['attempts'] += 1
             print(session['attempts'])
             if session['attempts'] == 2:
-                flash('Wrong answer, %s, this is your last chance' % (session['username']), 'warning')
+                flash('"%s" is the wrong answer, %s, this is your last chance' % (request.form['answer'], session['username']), 'warning')
             else:
-                flash('Wrong answer, %s, you have %s attempts' % (session['username'], 3 - int(session['attempts'])), 'warning')
+                flash('"%s" is not the correct answer %s. You have %s more attempts' % (request.form['answer'], session['username'], 3 - int(session['attempts'])), 'warning')
         else:
             session['attempts'] = 0
             session['index'] += 1
-            flash('Wrong answer! Better luck with next riddle', 'error')
+            flash('Wrong answer! Better luck with the next riddle', 'error')
             
 
     if session['index'] >= 3:
