@@ -9,11 +9,17 @@
             </tr>
         </thead>
         <tbody>
-            <tr>
-                <td>{{ scoreboard }}</td>
-                <td>Test</td>
-            </tr>
+            {% for score in scores %}
+                <tr>
+                    <td class="{{ loop.cycle('odd', 'even') }}">{{ score.username }}</td>
+                    <td class="{{ loop.cycle('odd', 'even') }}">{{ score.score }}</td>
+                </tr>
+            {% endfor %}
         </tbody>
     </table>
+    <br>
+    {% if index < 10 %}
+        <a class="btn-return" href="{{ url_for('riddle') }}">return</a>
+    {% endif %}
 
 {% endblock %}

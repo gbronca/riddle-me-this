@@ -38,6 +38,9 @@ section {
     margin: auto;
     max-width: 80%;
     display: flex;
-    justify-content: space-around;
-    
+    justify-content: space-around;   
+}
+
+.odd {
+    background-color: #cbcbcb;
 }

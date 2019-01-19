@@ -1,4 +1,4 @@
-import os, json, random
+import os, json, random, operator
 from flask import Flask, render_template, session, redirect, request, url_for, flash
 
 app = Flask(__name__)
@@ -29,6 +29,7 @@ def logout():
 @app.route('/new_game', methods = ['GET', 'POST'])
 def new_game():
     session['username'] = request.form['username']
+    session['name'] = request.form['name']
     session['score'] = 0
     session['attempts'] = 0
     session['index'] = 0 # Pointer to the current question number
@@ -41,10 +42,16 @@ def new_game():
 
 @app.route('/scoreboard')
 def scoreboard():
+    
     with open('data/scores.json', 'r') as f:
         scores = json.load(f)
-    
-    return render_template('scoreboard.html', scoreboard=scores)
+
+    if session['score'] > 0:
+        scores.append({'username' : session['username'], 'score' : session['score']})
+
+    scores.sort(key=operator.itemgetter('score'),reverse=True)
+
+    return render_template('scoreboard.html', scores=scores, index=session['index'])
 
 
 @app.route('/riddle', methods = ['GET', 'POST'])
