@@ -1,23 +1,22 @@
 {% extends 'base.html' %}
 
 {% block content %}
-
     <div>
-        <strong>{{ question }}</strong>
+        <div class="riddle-question">
+            <strong>{{ question }}</strong>
+        </div>
+        <form method="POST" class="riddle-answer-form">
+            <span>Answer: </span>
+            <input type="text" name="answer" id="answer" placeholder="your answer" required>
+            <input type="submit" value="Answer">
+        </form>
         <br>
+        {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+                {% for category, message in messages %}
+                    <div class="{{ category }}">{{ message }}</div>
+                {% endfor %}
+            {% endif %}
+        {% endwith %}
     </div>
-    <form method="POST">
-        <span>answer:</span>
-        <input type="text" name="answer" id="answer">
-        <input type="submit" value="Answer">
-    </form>
-    <br>
-    {% with messages = get_flashed_messages(with_categories=true) %}
-        {% if messages %}
-            {% for category, message in messages %}
-                <div class="{{ category }}">{{ message }}</div>
-            {% endfor %}
-        {% endif %}
-    {% endwith %}
-
 {% endblock %}

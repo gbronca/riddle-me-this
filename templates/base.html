@@ -10,7 +10,7 @@
 <body>
     <header>
         <nav>
-            <ul>
+            <ul class="menu-items">
                 <li><a href="{{ url_for('index') }}">Home</a></li>
                 <li><a href="{{ url_for('index') }}">Login</a></li>
                 <li><a href="{{ url_for('logout') }}">Logout</a></li>
@@ -19,7 +19,7 @@
         </nav>    
     </header>
 
-    <section>
+    <section class="main-section">
         {% block content %}
 
         {% endblock %}

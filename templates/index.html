@@ -1,16 +1,27 @@
 {% extends 'base.html' %}
 
-
 {% block content %}
+    <h1 class="game-title">Riddle-Me-This</h1>
+    <h2>Welcome to Riddle-Me-This Game Project!</h2>
+    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Provident quae debitis, 
+        corrupti tempora officiis, consectetur eum doloribus cum modi animi recusandae 
+        voluptatibus excepturi veritatis vel amet eligendi voluptates nihil doloremque!</p>
+    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Provident quae debitis, 
+        corrupti tempora officiis, consectetur eum doloribus cum modi animi recusandae 
+        voluptatibus excepturi veritatis vel amet eligendi voluptates nihil doloremque!</p>
+    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Provident quae debitis, 
+        corrupti tempora officiis, consectetur eum doloribus cum modi animi recusandae 
+        voluptatibus excepturi veritatis vel amet eligendi voluptates nihil doloremque!</p>
     <form method="POST" action="{{ url_for('new_game') }}" id="form-details">
-        <div>
+        <div class="form-items">
             <label for="name">Name: </label>
-            <input type="text" name="name" id="name">        
+            <input type="text" name="name" id="name" placeholder="Name">
         </div>
-        <div>
+        <div class="form-items">
             <label for="username">Username: </label>
-            <input type="text" name="username" id="username">
+            <input type="text" name="username" id="username" placeholder="username" required>
         </div>
-        <input type="submit" value="Start">
+        <input type="submit" value="Start" class="btn-start">
     </form>
+    <br>
 {% endblock %}

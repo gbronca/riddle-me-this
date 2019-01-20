@@ -1,6 +1,8 @@
-div.warning{
-    background-color: rgba(220, 20, 60, 0.3);
-    color: rgb(255, 0, 0);
+@import url('https://fonts.googleapis.com/css?family=Nunito+Sans:400,600');
+
+/* ***** General styling  ***** */
+:root {
+    font-family: 'Nunito Sans', sans-serif;
 }
 
 * {
@@ -9,17 +11,9 @@ div.warning{
 
 body {
     max-width: 960px;
-    margin: auto;
-    
-}
-
-header {
-    border: 1px solid #000000;
-}
-
-nav ul {
-    display: flex;
-    justify-content: space-evenly;
+    margin: auto;    
+    background: #faebd7 url('https://source.unsplash.com/collection/151521/1600x900') no-repeat;
+    background-position: 50% 0%;
 }
 
 li {
@@ -28,19 +22,107 @@ li {
 
 a {
     text-decoration: none;
+    color: #fff;
+    font-weight: 600;
 }
 
-section {
-    padding-top: 20px;
+a:hover {
+    color: #e8e816;
 }
+
+/* ***** Flash Messages ***** */
+div.warning{
+    background-color: rgba(220, 20, 60, 0.3);
+    color: rgb(255, 0, 0);
+}
+
+/* ***** Menu / Header ***** */
+
+header {
+    border: 1px solid rgb(0, 0, 0);
+    background-color: rgba(0, 0, 0, 0.7);
+    border-radius: 0 0 10px 10px;
+}
+
+.menu-items {
+    display: flex;
+    justify-content: space-evenly;
+    flex-wrap: wrap;
+}
+
+.main-section {
+    margin: 2rem auto;
+    padding: 1.5rem 2rem;
+    background-color: rgba(0, 0, 0, 0.5);
+    border-radius: 10px;
+    color: #fff;
+    width: 98%;
+}
+
+/* ***** Form stylings ***** */
 
 #form-details {
+    padding-top: 2rem;
     margin: auto;
-    max-width: 80%;
-    display: flex;
-    justify-content: space-around;   
+    max-width: 90%;
+    display: grid;
+    grid-gap: 0.5rem;
+    grid-template-columns: repeat(2, 2fr) 1fr;
+    justify-items: center;
+    align-items: center; 
 }
+
+.form-items label {
+    padding: 0 5px 0 0;
+    text-align: right;
+    /* background-color: rgba(0, 0, 0, 0.3);
+    color: #fff; */
+}
+
+.riddle-question {
+    padding-bottom: 0.8rem;
+}
+
+.riddle-answer-form input {
+    margin: 0 5px;
+}
+
+/* ***** Buttons ***** */
+
+.btn-start {
+    box-sizing: content-box;
+    padding: 1px 0.9rem;
+    font-size: 0.9rem;
+    margin: 0.3rem;
+    background-color: #00aa00;
+    color: #ffffff;
+    border: 1px solid #00aa00;
+    border-radius: 5px;
+}
+
+/* ***** Scoreboard ***** */
 
 .odd {
     background-color: #cbcbcb;
+}
+
+
+/* ***** Media Queries ***** */
+
+@media screen and (max-width: 760px) {
+    #form-details {
+        grid-template-columns: 1fr;
+        justify-content: center;
+    }
+
+    .form-items {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        padding-right: 15%; 
+    }
+
+    .main-section {
+        padding: 1.5rem 1rem;
+    }
+
 }

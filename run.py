@@ -46,12 +46,16 @@ def scoreboard():
     with open('data/scores.json', 'r') as f:
         scores = json.load(f)
 
-    if session['score'] > 0:
-        scores.append({'username' : session['username'], 'score' : session['score']})
+    if 'username' in session:
+        if session['score'] > 0:
+            scores.append({'username' : session['username'], 'score' : session['score']})
 
-    scores.sort(key=operator.itemgetter('score'),reverse=True)
-
-    return render_template('scoreboard.html', scores=scores, index=session['index'])
+        scores.sort(key=operator.itemgetter('score'),reverse=True)
+        return render_template('scoreboard.html', scores=scores, index=session['index'])
+    
+    else:
+        scores.sort(key=operator.itemgetter('score'),reverse=True)
+        return render_template('scoreboard.html', scores=scores, index=0)
 
 
 @app.route('/riddle', methods = ['GET', 'POST'])
@@ -66,7 +70,7 @@ def riddle():
             flash('Correct answer, %s, %s' % (session['score'], session['username']), 'success')
         elif session['attempts'] < 2:
             session['attempts'] += 1
-            print(session['attempts'])
+            # print(session['attempts'])
             if session['attempts'] == 2:
                 flash('"%s" is the wrong answer, %s, this is your last chance' % (request.form['answer'], session['username']), 'warning')
             else:
