@@ -17,7 +17,7 @@ riddles = load_riddles()
 def index():
     if session:
         [session.pop(key) for key in list(session.keys())]
-    return render_template('index.html')
+    return render_template('index.html', session=False)
 
 # Logout the current user and delete existing session
 @app.route('/logout')
@@ -70,7 +70,6 @@ def riddle():
             flash('Correct answer, %s, %s' % (session['score'], session['username']), 'success')
         elif session['attempts'] < 2:
             session['attempts'] += 1
-            # print(session['attempts'])
             if session['attempts'] == 2:
                 flash('"%s" is the wrong answer, %s, this is your last chance' % (request.form['answer'], session['username']), 'warning')
             else:
@@ -81,7 +80,7 @@ def riddle():
             flash('Wrong answer! Better luck with the next riddle', 'error')
             
 
-    if session['index'] >= 3:
+    if session['index'] >= 10:
         flash('Congratulations, you finished the game %s. Your score is %s' %(session['username'], session['score']), 'victory')
 
 

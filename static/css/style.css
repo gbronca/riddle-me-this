@@ -9,7 +9,7 @@
     box-sizing: border-box;
 }
 
-body {
+.body {
     max-width: 960px;
     margin: auto;    
     background: #faebd7 url('https://source.unsplash.com/collection/151521/1600x900') no-repeat;
@@ -31,14 +31,14 @@ a:hover {
 }
 
 /* ***** Flash Messages ***** */
-div.warning{
+.warning{
     background-color: rgba(220, 20, 60, 0.3);
     color: rgb(255, 0, 0);
 }
 
 /* ***** Menu / Header ***** */
 
-header {
+.header {
     border: 1px solid rgb(0, 0, 0);
     background-color: rgba(0, 0, 0, 0.7);
     border-radius: 0 0 10px 10px;

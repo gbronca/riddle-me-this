@@ -19,7 +19,9 @@
         </div>
         <div class="form-items">
             <label for="username">Username: </label>
-            <input type="text" name="username" id="username" placeholder="username" required>
+            <input type="text" name="username" id="username" placeholder="Username" required 
+                oninvalid="this.setCustomValidity('Please Enter an Username')"
+                oninput="setCustomValidity('')">
         </div>
         <input type="submit" value="Start" class="btn-start">
     </form>

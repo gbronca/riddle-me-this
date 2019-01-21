@@ -7,13 +7,16 @@
     <link rel="stylesheet"  href="{{url_for('static', filename='css/style.css')}}" type="text/css" >
     <title>Riddle Me This!</title>
 </head>
-<body>
-    <header>
+<body class="body">
+    <header class="header">
         <nav>
             <ul class="menu-items">
                 <li><a href="{{ url_for('index') }}">Home</a></li>
-                <li><a href="{{ url_for('index') }}">Login</a></li>
-                <li><a href="{{ url_for('logout') }}">Logout</a></li>
+                {% if session == False %}
+                    <li><a href="{{ url_for('index') }}">Login</a></li>
+                {% else %}
+                    <li><a href="{{ url_for('logout') }}">Logout</a></li>
+                {% endif %}
                 <li><a href="{{ url_for('scoreboard') }}">Scoreboard</a></li>
             </ul>
         </nav>    
