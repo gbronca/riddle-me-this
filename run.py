@@ -16,8 +16,9 @@ riddles = load_riddles()
 @app.route('/')
 def index():
     if session:
-        [session.pop(key) for key in list(session.keys())]
-    return render_template('index.html', session=False)
+        return render_template('index.html', session=True)
+    else:
+        return render_template('index.html', session=False)
 
 # Logout the current user and delete existing session
 @app.route('/logout')
@@ -28,11 +29,16 @@ def logout():
 ''' Create new session and start a new game when a username is passed by index function '''
 @app.route('/new_game', methods = ['GET', 'POST'])
 def new_game():
-    session['username'] = request.form['username']
-    session['name'] = request.form['name']
-    session['score'] = 0
-    session['attempts'] = 0
-    session['index'] = 0 # Pointer to the current question number
+
+    if 'username' not in session:
+        session['username'] = request.form['username']
+        session['score'] = 0
+        session['attempts'] = 0
+        session['index'] = 0 # Pointer to the current question number
+    else:
+        session['score'] = 0
+        session['attempts'] = 0
+        session['index'] = 0
     
     # Shuffles the riddles, ensuring that 2 players playing at the same time
     # would have a different order for the riddles
@@ -71,9 +77,9 @@ def riddle():
         elif session['attempts'] < 2:
             session['attempts'] += 1
             if session['attempts'] == 2:
-                flash('"%s" is the wrong answer, %s, this is your last chance' % (request.form['answer'], session['username']), 'warning')
+                flash('"%s" is the wrong answer, %s, this is your last chance' % (request.form['answer'], session['username']), 'second-warning')
             else:
-                flash('"%s" is not the correct answer %s. You have %s more attempts' % (request.form['answer'], session['username'], 3 - int(session['attempts'])), 'warning')
+                flash('"%s" is not the correct answer %s. You have %s more attempts' % (request.form['answer'], session['username'], 3 - int(session['attempts'])), 'first-warning')
         else:
             session['attempts'] = 0
             session['index'] += 1
@@ -82,9 +88,9 @@ def riddle():
 
     if session['index'] >= 10:
         flash('Congratulations, you finished the game %s. Your score is %s' %(session['username'], session['score']), 'victory')
-
-
-    return render_template('riddle.html', question=riddles[session['index']]['question'])
+        return render_template('riddle.html', question='', victory=True)
+    else:
+        return render_template('riddle.html', question=riddles[session['index']]['question'], victory=False)
 
 if __name__ == '__main__':
     app.secret_key = os.getenv('SECRET', 'mysecretkey123')

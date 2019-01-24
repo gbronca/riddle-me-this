@@ -12,18 +12,21 @@
     <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Provident quae debitis, 
         corrupti tempora officiis, consectetur eum doloribus cum modi animi recusandae 
         voluptatibus excepturi veritatis vel amet eligendi voluptates nihil doloremque!</p>
-    <form method="POST" action="{{ url_for('new_game') }}" id="form-details">
-        <div class="form-items">
-            <label for="name">Name: </label>
-            <input type="text" name="name" id="name" placeholder="Name">
+    
+    {% if session == False %}
+        <form method="POST" action="{{ url_for('new_game') }}" id="form-details">
+            <div class="form-items">
+                <label for="username">Username: </label>
+                <input type="text" name="username" id="username" placeholder="Username" required 
+                    oninvalid="this.setCustomValidity('Please Enter an Username')"
+                    oninput="setCustomValidity('')">
+            </div>
+            <input type="submit" value="Start" class="btn btn-start">
+        </form>
+    {% else %}
+        <div class="return-button-container">
+            <a class="btn btn-return" href="{{ url_for('riddle') }}">return</a>
         </div>
-        <div class="form-items">
-            <label for="username">Username: </label>
-            <input type="text" name="username" id="username" placeholder="Username" required 
-                oninvalid="this.setCustomValidity('Please Enter an Username')"
-                oninput="setCustomValidity('')">
-        </div>
-        <input type="submit" value="Start" class="btn-start">
-    </form>
+    {% endif %}
     <br>
 {% endblock %}

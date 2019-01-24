@@ -2,21 +2,40 @@
 
 {% block content %}
     <div>
-        <div class="riddle-question">
-            <strong>{{ question }}</strong>
-        </div>
-        <form method="POST" class="riddle-answer-form">
-            <span>Answer: </span>
-            <input type="text" name="answer" id="answer" placeholder="your answer" required>
-            <input type="submit" value="Answer">
-        </form>
-        <br>
-        {% with messages = get_flashed_messages(with_categories=true) %}
-            {% if messages %}
-                {% for category, message in messages %}
-                    <div class="{{ category }}">{{ message }}</div>
-                {% endfor %}
-            {% endif %}
-        {% endwith %}
+        {% if victory == True %}
+            {% with messages = get_flashed_messages(with_categories=true) %}
+                {% if messages %}
+                    {% for category, message in messages %}
+                        <div class="flash-message {{ category }}">{{ message }}</div>
+                    {% endfor %}
+                {% endif %}
+            {% endwith %}
+            <br>
+            <div class="return-button-container">
+                <a class="btn btn-start" href="{{ url_for('new_game') }}">Start New Game</a>
+            </div>
+        {% else %}
+            <div class="riddle-question">
+                <strong>{{ question }}</strong>
+            </div>
+            <form method="POST" class="riddle-answer-form">
+                <div class="riddle-answer">
+                    <span>Answer: </span>
+                    <input type="text" name="answer" id="answer" placeholder="your answer" required>
+                </div>
+                <div class="riddle-answer">
+                    <input type="submit" value="Answer" class="btn btn-start">
+                </div>
+            </form>
+            <div class="flash-message-container">
+                {% with messages = get_flashed_messages(with_categories=true) %}
+                    {% if messages %}
+                        {% for category, message in messages %}
+                            <div class="flash-message {{ category }}">{{ message }}</div>
+                        {% endfor %}
+                    {% endif %}
+                {% endwith %}
+            </div>
+        {% endif %}
     </div>
 {% endblock %}

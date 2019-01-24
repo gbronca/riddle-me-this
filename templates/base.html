@@ -5,28 +5,31 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <link rel="stylesheet"  href="{{url_for('static', filename='css/style.css')}}" type="text/css" >
+
     <title>Riddle Me This!</title>
 </head>
 <body class="body">
     <header class="header">
         <nav>
             <ul class="menu-items">
-                <li><a href="{{ url_for('index') }}">Home</a></li>
+                <li><a class="menu-item" href="{{ url_for('index') }}">Home</a></li>
                 {% if session == False %}
-                    <li><a href="{{ url_for('index') }}">Login</a></li>
+                    <li><a class="menu-item" href="{{ url_for('index') }}">Login</a></li>
                 {% else %}
-                    <li><a href="{{ url_for('logout') }}">Logout</a></li>
+                    <li><a class="menu-item" href="{{ url_for('logout') }}">Logout</a></li>
                 {% endif %}
-                <li><a href="{{ url_for('scoreboard') }}">Scoreboard</a></li>
+                <li><a class="menu-item" href="{{ url_for('scoreboard') }}">Scoreboard</a></li>
             </ul>
         </nav>    
     </header>
 
-    <section class="main-section">
+    <section class="section">
         {% block content %}
 
         {% endblock %}
     </section>
-
+    <footer class="footer">
+        Created by Giovanni Bronca
+    </footer>
 </body>
 </html>

@@ -1,8 +1,8 @@
 {% extends 'base.html' %}
 
 {% block content %}
-    <table>
-        <thead>
+    <table class="scoreboard-wrapper">
+        <thead class="table-head">
             <tr>
                 <th>Score</th>
                 <th>Username</th>
@@ -11,15 +11,16 @@
         <tbody>
             {% for score in scores %}
                 <tr>
-                    <td class="{{ loop.cycle('odd', 'even') }}">{{ score.username }}</td>
-                    <td class="{{ loop.cycle('odd', 'even') }}">{{ score.score }}</td>
+                    <td class="username-column {{ loop.cycle('odd', 'even') }}">{{ score.username }}</td>
+                    <td class="score-column {{ loop.cycle('odd', 'even') }}">{{ score.score }}</td>
                 </tr>
             {% endfor %}
         </tbody>
     </table>
-    <br>
     {% if index < 10 %}
-        <a class="btn-return" href="{{ url_for('riddle') }}">return</a>
+        <div class="button-container">
+            <a class="btn btn-return" href="{{ url_for('riddle') }}">return</a>
+        </div>
     {% endif %}
 
 {% endblock %}
