@@ -6,7 +6,11 @@ app = Flask(__name__)
 ''' Loads the riddles.json file into a variable '''
 def load_riddles():
     with open('data/riddles.json','r') as f:
-        riddles = json.load(f)
+        riddles_list = json.load(f)
+
+    random.shuffle(riddles_list)
+    riddles = riddles_list[:10]
+ 
     return riddles
 
 # Load the riddles
@@ -43,7 +47,7 @@ def new_game():
     # Shuffles the riddles, ensuring that 2 players playing at the same time
     # would have a different order for the riddles
     random.shuffle(riddles)
-
+    
     return redirect(url_for('riddle'))
 
 @app.route('/scoreboard')
@@ -64,33 +68,51 @@ def scoreboard():
         return render_template('scoreboard.html', scores=scores, index=0)
 
 
+@app.route('/skip', methods = ['GET', 'POST'])
+def skip():
+    session['index'] += 1
+    session['attempts'] = 0
+    
+    return redirect(url_for('riddle'))
+
+
 @app.route('/riddle', methods = ['GET', 'POST'])
 def riddle():
     if 'username' not in session:
         return redirect(url_for('index'))
-    
-    if request.method == 'POST' and session['index'] < len(riddles):
-        if request.form['answer'].lower() == riddles[session['index']]['answer'].lower():
-            session['score'] += 1
-            session['index'] += 1
-            flash('Correct answer, %s, %s' % (session['score'], session['username']), 'success')
-        elif session['attempts'] < 2:
-            session['attempts'] += 1
-            if session['attempts'] == 2:
-                flash('"%s" is the wrong answer, %s, this is your last chance' % (request.form['answer'], session['username']), 'second-warning')
-            else:
-                flash('"%s" is not the correct answer %s. You have %s more attempts' % (request.form['answer'], session['username'], 3 - int(session['attempts'])), 'first-warning')
-        else:
-            session['attempts'] = 0
-            session['index'] += 1
-            flash('Wrong answer! Better luck with the next riddle', 'error')
-            
 
-    if session['index'] >= 10:
-        flash('Congratulations, you finished the game %s. Your score is %s' %(session['username'], session['score']), 'victory')
+    index = session['index']
+    score = session['score']
+    attempts = session['attempts']
+    user = session['username']
+    
+    if request.method == 'POST' and index < len(riddles):
+        if request.form['answer'].lower() == riddles[index]['answer'].lower():
+            score += 1
+            index += 1
+            if index < 10:
+                flash('Great answer, %s. Your current score is %s.' % (user, score), 'success')
+        elif attempts < 2:
+            attempts += 1
+            if attempts == 2:
+                flash('"%s" is the wrong answer, %s, this is your last chance.' % (request.form['answer'], user), 'second-warning')
+            else:
+                flash('"%s" is not the correct answer, %s. You have %s more attempts.' % (request.form['answer'], user, 3 - int(attempts)), 'first-warning')
+        else:
+            attempts = 0
+            index += 1
+            if index < 10:
+                flash('Wrong answer! Better luck next time', 'error')
+
+    session['index'] = index
+    session['score'] = score
+    session['attempts'] = attempts
+
+    if index >= len(riddles):
+        flash('Congratulations %s, you have finished the game. Your scored %s points.' %(user, score), 'victory')
         return render_template('riddle.html', question='', victory=True)
     else:
-        return render_template('riddle.html', question=riddles[session['index']]['question'], victory=False)
+        return render_template('riddle.html', question=riddles[index]['question'], victory=False)
 
 if __name__ == '__main__':
     app.secret_key = os.getenv('SECRET', 'mysecretkey123')

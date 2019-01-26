@@ -27,15 +27,20 @@
                     <input type="submit" value="Answer" class="btn btn-start">
                 </div>
             </form>
-            <div class="flash-message-container">
+            <div class="return-button-container">
+                <a class="btn btn-skip" href="{{ url_for('skip') }}">Skip</a>
+            </div>
+            <!-- <div class="flash-message-container"> -->
                 {% with messages = get_flashed_messages(with_categories=true) %}
                     {% if messages %}
+                    <div class="flash-message-container">
                         {% for category, message in messages %}
                             <div class="flash-message {{ category }}">{{ message }}</div>
                         {% endfor %}
+                    </div>
                     {% endif %}
                 {% endwith %}
-            </div>
+            <!-- </div> -->
         {% endif %}
     </div>
 {% endblock %}

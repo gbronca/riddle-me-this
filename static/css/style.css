@@ -59,11 +59,12 @@ li {
 
 .btn {
     box-sizing: content-box;
-    padding: 0.2rem 1rem;
-    font-size: 0.9rem;
+    padding: 0.2rem 1.5rem;
+    font-size: 1rem;
     margin: 0.3rem;
     border-radius: 10px;
     text-decoration: none;
+    text-transform: capitalize;
 }
 
 .btn-start {
@@ -76,10 +77,12 @@ li {
     background-color: #ffaa00;
     color: #ffffff;
     border: 1px solid #ffaa00;
-    font-size: 1rem;
-    padding-left: 1.5rem;
-    padding-right: 1.5rem;
-    text-transform: capitalize;
+}
+
+.btn-skip {
+    background-color: #ff0000;
+    color: #ffffff;
+    border: 1px solid #ff0000;
 }
 
 .return-button-container {
@@ -91,7 +94,7 @@ li {
 /* ********** Flash Messages ********** */
 
 .flash-message-container {
-    padding-top: 5rem;
+    padding-top: 2.5rem;
     padding-bottom: 2rem;
 }
 
