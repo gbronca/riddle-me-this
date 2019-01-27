@@ -12,13 +12,13 @@
     <header class="header">
         <nav>
             <ul class="menu-items">
-                <li><a class="menu-item" href="{{ url_for('index') }}">Home</a></li>
+                <li class="menubar-list-item"><a class="menu-item" href="{{ url_for('index') }}">Home</a></li>
                 {% if session == False %}
-                    <li><a class="menu-item" href="{{ url_for('index') }}">Login</a></li>
+                    <li class="menubar-list-item"><a class="menu-item" href="{{ url_for('index') }}">Login</a></li>
                 {% else %}
-                    <li><a class="menu-item" href="{{ url_for('logout') }}">Logout</a></li>
+                    <li class="menubar-list-item"><a class="menu-item" href="{{ url_for('logout') }}">Logout</a></li>
                 {% endif %}
-                <li><a class="menu-item" href="{{ url_for('scoreboard') }}">Scoreboard</a></li>
+                <li class="menubar-list-item"><a class="menu-item" href="{{ url_for('scoreboard') }}">Scoreboard</a></li>
             </ul>
         </nav>    
     </header>
@@ -28,6 +28,7 @@
 
         {% endblock %}
     </section>
+    <br class="section-separator">
     <footer class="footer">
         Created by Giovanni Bronca
     </footer>

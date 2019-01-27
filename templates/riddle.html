@@ -16,7 +16,7 @@
             </div>
         {% else %}
             <div class="riddle-question">
-                <strong>{{ question }}</strong>
+                <strong>{{ index}}. {{ question }}</strong>
             </div>
             <form method="POST" class="riddle-answer-form">
                 <div class="riddle-answer">
@@ -28,7 +28,7 @@
                 </div>
             </form>
             <div class="return-button-container">
-                <a class="btn btn-skip" href="{{ url_for('skip') }}">Skip</a>
+                <a class="btn btn-skip" href="{{ url_for('skip') }}">Skip Riddle</a>
             </div>
             <!-- <div class="flash-message-container"> -->
                 {% with messages = get_flashed_messages(with_categories=true) %}

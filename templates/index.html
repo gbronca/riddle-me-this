@@ -1,17 +1,27 @@
 {% extends 'base.html' %}
 
 {% block content %}
-    <h1 class="game-title">Riddle-Me-This</h1>
+    <h1 class="game-title">Riddle-Me-This!</h1>
     <h2>Welcome to Riddle-Me-This Game Project!</h2>
-    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Provident quae debitis, 
-        corrupti tempora officiis, consectetur eum doloribus cum modi animi recusandae 
-        voluptatibus excepturi veritatis vel amet eligendi voluptates nihil doloremque!</p>
-    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Provident quae debitis, 
-        corrupti tempora officiis, consectetur eum doloribus cum modi animi recusandae 
-        voluptatibus excepturi veritatis vel amet eligendi voluptates nihil doloremque!</p>
-    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Provident quae debitis, 
-        corrupti tempora officiis, consectetur eum doloribus cum modi animi recusandae 
-        voluptatibus excepturi veritatis vel amet eligendi voluptates nihil doloremque!</p>
+    <p>A riddle is a statement or question or phrase having a double or veiled meaning,
+        put forth as a puzzle to be solved. Riddles are of two types: enigmas, which are
+        problems generally expressed in metaphorical or allegorical language that require 
+        ingenuity and careful thinking for their solution, and conundra, which are questions 
+        relying for their effects on punning in either the question or the answer.</p>
+    <p>Archer Taylor says that "we can probably say that riddling is a universal art" and 
+        cites riddles from hundreds of different cultures including Finnish, Hungarian, 
+        American Indian, Chinese, Russian, Dutch and Filipino sources amongst many others.</p>
+    <p>The Riddle Game is a formalized guessing game, a contest of wit and skill in which 
+        players take turns asking riddles. The player that cannot answer loses. Riddle games 
+        occur frequently in mythology and folklore as well as in popular literature.</p>
+    <h3 class="game-instructions">How Riddle-Me-This Works:</h3>
+    <ol>
+        <li class="game-instructions-list">Insert your username below to start the game.</li>
+        <li class="game-instructions-list">You are then presented with 10 riddles to answer.</li>
+        <li class="game-instructions-list">Each correct answer is awarded with 1 point.</li>
+        <li class="game-instructions-list">You have 3 chances to answer the quesiton correctly.</li>
+        <li class="game-instructions-list">Good luck!</li>
+    </ol>
     
     {% if session == False %}
         <form method="POST" action="{{ url_for('new_game') }}" id="form-details">

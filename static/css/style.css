@@ -15,10 +15,7 @@
     background: #faebd7 url('https://source.unsplash.com/collection/151521/1600x900') no-repeat fixed center;
     background-size: 1600px 100vh;
     min-height: 100vh;
-}
-
-li {
-    list-style: none;
+    position: relative;
 }
 
 .section {
@@ -36,6 +33,10 @@ li {
     border: 1px solid rgb(0, 0, 0);
     background-color: rgba(0, 0, 0, 0.7);
     border-radius: 0 0 10px 10px;
+}
+
+.menubar-list-item {
+    list-style: none;
 }
 
 .menu-items {
@@ -136,14 +137,20 @@ li {
 
 /* ********** Footer ********** */
 
+.section-separator {
+    line-height: 4rem;
+}
 
 .footer {
     position: absolute;
     right: 0;
-    bottom: 0;
     left: 0;
+    bottom: 0;
+    margin-top: 2rem;
     padding: 1rem;
+    border: 1px solid rgb(0, 0, 0);
     background-color: rgba(0, 0, 0, 0.7);
+    border-radius: 10px 10px 0 0;
     text-align: center;
     color: #ffffff;
   }
@@ -167,11 +174,33 @@ li {
     text-align: right;
 }
 
+#username,
+#answer {
+    background-color: rgba(255, 255, 255, 0.8);
+    border-radius: 5px;
+    font-size: 0.8rem;
+}
+
+/* ***** Index Page ***** */
+
+.game-title {
+    text-align: center;
+    font-size: 2rem;
+    font-weight: 600;
+}
+
+.game-instructions {
+    padding-top: 1rem;
+}
+
+.game-instructions-list {
+    padding-left: 10px;
+}
 
 /* ***** Riddle Page ***** */
 
 .riddle-question {
-    padding-bottom: 0.8rem;
+    padding: 1rem 0 0.5rem 0;
     font-size: 1.2rem;
 }
 

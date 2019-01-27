@@ -90,7 +90,7 @@ def riddle():
         if request.form['answer'].lower() == riddles[index]['answer'].lower():
             score += 1
             index += 1
-            if index < 10:
+            if index < len(riddles):
                 flash('Great answer, %s. Your current score is %s.' % (user, score), 'success')
         elif attempts < 2:
             attempts += 1
@@ -101,7 +101,7 @@ def riddle():
         else:
             attempts = 0
             index += 1
-            if index < 10:
+            if index < len(riddles):
                 flash('Wrong answer! Better luck next time', 'error')
 
     session['index'] = index
@@ -110,9 +110,9 @@ def riddle():
 
     if index >= len(riddles):
         flash('Congratulations %s, you have finished the game. Your scored %s points.' %(user, score), 'victory')
-        return render_template('riddle.html', question='', victory=True)
+        return render_template('riddle.html', question='', index='', victory=True)
     else:
-        return render_template('riddle.html', question=riddles[index]['question'], victory=False)
+        return render_template('riddle.html', question=riddles[index]['question'], index=index+1, victory=False)
 
 if __name__ == '__main__':
     app.secret_key = os.getenv('SECRET', 'mysecretkey123')
