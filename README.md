@@ -47,6 +47,8 @@ All navigation buttons and links where tested in all stages of the game, ensurin
 
 The game was also played/tested by 3rd party players that reported any unusual behaviour.
 
+The CSS was validated by [W3C CSS Validator](https://jigsaw.w3.org/css-validator/) and the HTML bt [W3C Markup Validator](https://validator.w3.org/)
+
 ## Images Source
 
 The images are sourced from [Unsplash Sorce](https://source.unsplash.com/ "Unsplash Source")
