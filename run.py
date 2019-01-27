@@ -90,6 +90,7 @@ def riddle():
         if request.form['answer'].lower() == riddles[index]['answer'].lower():
             score += 1
             index += 1
+            attempts = 0
             if index < len(riddles):
                 flash('Great answer, %s. Your current score is %s.' % (user, score), 'success')
         elif attempts < 2:
