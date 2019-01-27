@@ -61,9 +61,12 @@ The images are sourced from [Unsplash Sorce](https://source.unsplash.com/ "Unspl
 
 * Create a requirements.txt file and Procfile
     > sudo pip3 freeze --local > requirements.txt
+    >
     > echo web: python run.py > Procfile
 
 * To connect Heroku with GitHub and deploy the app
     > git remote add heroku <https://git.heroku.com/riddle-me-this-gb.git>
+    >
     > git push -u heroku master
+    >
     > heroku ps:scale web=1
