@@ -12,8 +12,8 @@
 .body {
     max-width: 960px;
     margin: auto;    
-    background: #faebd7 url('https://source.unsplash.com/collection/151521/1600x900') no-repeat fixed center;
-    background-size: 1600px 100vh;
+    background: #faebd7 url('/static/images/background.jpg') no-repeat fixed center;
+    background-size: 1120px 100vh;
     min-height: 100vh;
     position: relative;
 }

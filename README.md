@@ -53,7 +53,7 @@ The python file was checked by pylint.
 
 ## Images Source
 
-The images are sourced from [Unsplash Sorce](https://source.unsplash.com/ "Unsplash Source")
+The images are sourced from [Unsplash](https://unsplash.com/ "Unsplash")
 
 ## Deployment
 
