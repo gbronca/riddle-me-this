@@ -13,8 +13,18 @@ def load_riddles():
  
     return riddles
 
+''' Load the score files into a list '''
+def load_scores():
+    with open('data/scores.json', 'r') as f:
+        scores = json.load(f)
+
+    return scores
+
 # Load the riddles
 riddles = load_riddles()
+
+# Load previous scores
+scores = load_scores()
 
 # Starts the game and delete existing session
 @app.route('/')
@@ -39,10 +49,12 @@ def new_game():
         session['score'] = 0
         session['attempts'] = 0
         session['index'] = 0 # Pointer to the current question number
+        session['updated'] = False
     else:
         session['score'] = 0
         session['attempts'] = 0
         session['index'] = 0
+        session['updated'] = False
     
     # Shuffles the riddles, ensuring that 2 players playing at the same time
     # would have a different order for the riddles
@@ -53,20 +65,22 @@ def new_game():
 @app.route('/scoreboard')
 def scoreboard():
     
-    with open('data/scores.json', 'r') as f:
-        scores = json.load(f)
+    score = []
+    index = 0
 
-    if 'username' in session:
-        if session['score'] > 0:
-            scores.append({'username' : session['username'], 'score' : session['score']})
-
-        scores.sort(key=operator.itemgetter('score'),reverse=True)
-        return render_template('scoreboard.html', scores=scores, index=session['index'])
-    
+    if 'index' in session:
+        if session['index'] < len(riddles):
+            if session['score'] > 0:
+                score.append({'username' : session['username'], 'score' : session['score']})
+            score += scores
+        else:
+            score = scores
+        index = session['index']
     else:
-        scores.sort(key=operator.itemgetter('score'),reverse=True)
-        return render_template('scoreboard.html', scores=scores, index=0)
+        score += scores
 
+    score.sort(key=operator.itemgetter('score'),reverse=True)
+    return render_template('scoreboard.html', scores=score, index=index)
 
 @app.route('/skip', methods = ['GET', 'POST'])
 def skip():
@@ -110,11 +124,14 @@ def riddle():
     session['attempts'] = attempts
 
     if index >= len(riddles):
-        flash('Congratulations %s, you have finished the game. Your scored %s points.' %(user, score), 'victory')
+        if not session['updated']:
+            scores.append({'username' : session['username'], 'score' : session['score']})
+            session['updated'] = True
+        flash('Congratulations %s, you have finished the game. You scored %s points.' %(user, score), 'victory')
         return render_template('riddle.html', question='', index='', victory=True)
     else:
         return render_template('riddle.html', question=riddles[index]['question'], index=index+1, victory=False)
 
 if __name__ == '__main__':
-    app.secret_key = os.getenv('SECRET', 'mysecretkey123')
-    app.run(host=os.getenv('IP', '0.0.0.0'), port=int(os.getenv('PORT', '5000')), debug=False)
+    app.secret_key = os.getenv('SECRET')
+    app.run(host=os.getenv('IP'), port=int(os.getenv('PORT')), debug=False)

@@ -12,7 +12,7 @@ This is the 3rd project for the Full Stack Web Development bootcamp from Code In
 
 ## UX
 
-The idea is to have a simple and clean UX, but also interesting by the changing background images. No CSS Framerworks were used to build the project, only CSS Flexbox and Grid.
+The idea is to have a simple and clean UX. No CSS Framerworks were used to build the project, only CSS Flexbox and Grid.
 
 ## Features
 
